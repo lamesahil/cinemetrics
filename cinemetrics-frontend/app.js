@@ -1,5 +1,5 @@
 // Base URL of your Backend Engine
-const API_URL = 'http://localhost:3000/api/movies';
+const API_URL = 'https://cnemetrics.onrender.com/api/movies';
 
 // 🧠 THE BRAIN: Ab token hardcode nahi hoga, seedha LocalStorage se uthega!
 const MY_TOKEN = localStorage.getItem('token');
