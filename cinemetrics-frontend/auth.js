@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000/api/users';
+const API_URL = 'https://cnemetrics.onrender.com/api/movies';
 
 // DOM Elements
 const authForm = document.getElementById('auth-form');

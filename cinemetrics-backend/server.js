@@ -12,7 +12,11 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middlewares
-app.use(cors());
+app.use(cors(
+  {
+    origin: '*', // Ye kisi bhi website (Vercel) se request accept karne dega
+    methods: ['GET', 'POST', 'PUT', 'DELETE']
+}));
 app.use(express.json()); // JSON data read karne ke liye
 app.use("/api/movies", movieRoutes); // Movie related routes handle karne ke liye
 app.use('/api/users', authRoutes);// Authentication related routes handle karne ke liye
