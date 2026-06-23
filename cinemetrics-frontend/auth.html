@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineMetrics - Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        lbxBg: '#14181c',
+                        lbxCard: '#1c2228',
+                        lbxText: '#9ab',
+                        lbxTextLight: '#ccd8e0',
+                        lbxGreen: '#00e054',
+                        lbxBorder: '#2c3440'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-lbxBg text-lbxText font-sans min-h-screen flex items-center justify-center p-6 antialiased">
+
+    <div class="bg-lbxCard p-8 rounded-md border border-lbxBorder shadow-2xl w-full max-w-md">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-white tracking-tight">CINEMETRICS</h1>
+            <p class="text-xs tracking-wide mt-2 uppercase text-lbxText">Data-Driven Film Logging</p>
+        </div>
+
+        <h2 id="form-title" class="text-lg font-semibold mb-6 text-white text-center">Sign In</h2>
+
+        <form id="auth-form" class="space-y-4">
+            <div id="name-group" class="hidden">
+                <label class="block text-xs font-semibold text-lbxText uppercase tracking-wide mb-1">Name</label>
+                <input type="text" id="name" class="w-full bg-lbxBg border border-lbxBorder rounded p-2 text-white text-sm focus:outline-none focus:border-lbxGreen transition-colors">
+            </div>
+
+            <div>
+                <label class="block text-xs font-semibold text-lbxText uppercase tracking-wide mb-1">Email Address</label>
+                <input type="email" id="email" required class="w-full bg-lbxBg border border-lbxBorder rounded p-2 text-white text-sm focus:outline-none focus:border-lbxGreen transition-colors">
+            </div>
+
+            <div>
+                <label class="block text-xs font-semibold text-lbxText uppercase tracking-wide mb-1">Password</label>
+                <input type="password" id="password" required class="w-full bg-lbxBg border border-lbxBorder rounded p-2 text-white text-sm focus:outline-none focus:border-lbxGreen transition-colors">
+            </div>
+
+            <button type="submit" id="submit-btn" class="w-full mt-6 bg-lbxGreen hover:bg-[#00c048] text-lbxBg font-bold py-2.5 px-4 rounded transition-colors uppercase tracking-wide text-sm">
+                Sign In
+            </button>
+        </form>
+
+        <div class="mt-6 text-center">
+            <p class="text-sm text-lbxText">
+                <span id="toggle-text">Don't have an account?</span> 
+                <button id="toggle-btn" class="text-white hover:text-lbxGreen font-semibold ml-1 transition-colors">Sign Up</button>
+            </p>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+</body>
+</html>

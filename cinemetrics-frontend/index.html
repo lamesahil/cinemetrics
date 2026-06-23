@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineMetrics - Log Your Films</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        // Letterboxd inspired color palette
+                        lbxBg: '#14181c',        // Deep Charcoal background
+                        lbxCard: '#1c2228',      // Slightly lighter card background
+                        lbxText: '#9ab',         // Muted blue-grey text
+                        lbxTextLight: '#ccd8e0', // Lighter text for headings
+                        lbxGreen: '#00e054',     // The iconic Letterboxd Green
+                        lbxOrange: '#ff8000',    // The rating/accent Orange
+                        lbxBorder: '#2c3440'     // Subtle borders
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar for a polished look */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #14181c; }
+        ::-webkit-scrollbar-thumb { background: #2c3440; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #9ab; }
+    </style>
+</head>
+<body class="bg-lbxBg text-lbxText font-sans min-h-screen p-6 antialiased">
+    
+    <header class="mb-12 max-w-5xl mx-auto flex items-baseline justify-between border-b border-lbxBorder pb-4">
+        <div>
+            <h1 class="text-3xl font-bold text-white tracking-tight">CINEMETRICS</h1>
+            <p class="text-sm tracking-wide mt-1 uppercase text-lbxText">Data-Driven Film Logging</p>
+        </div>
+        <div class="text-xs uppercase tracking-wider font-semibold text-lbxText">
+            <span id="user-greeting">Sahil's Watchlist</span>
+            <button id="logout-btn" class="hover:text-red-500 transition-colors cursor-pointer border border-lbxBorder hover:border-red-500 px-3 py-1.5 rounded bg-lbxCard">
+                LOG OUT
+            </button>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-10">
+        
+        <section class="h-fit">
+            <h2 class="text-sm font-semibold mb-4 text-lbxTextLight uppercase tracking-widest border-b border-lbxBorder pb-2">Log a Film</h2>
+            
+            <form id="add-movie-form" class="space-y-4 bg-lbxCard p-5 rounded-md border border-lbxBorder shadow-md">
+                <div>
+                    <label class="block text-xs font-semibold text-lbxText uppercase tracking-wide mb-1">Name of Film</label>
+                    <input type="text" id="title" required class="w-full bg-lbxBg border border-lbxBorder rounded p-2 text-white text-sm focus:outline-none focus:border-lbxGreen transition-colors">
+                </div>
+                
+                <div>
+                    <label class="block text-xs font-semibold text-lbxText uppercase tracking-wide mb-1">Genres</label>
+                    <input type="text" id="genre" placeholder="e.g. Crime, Drama" required class="w-full bg-lbxBg border border-lbxBorder rounded p-2 text-white text-sm focus:outline-none focus:border-lbxGreen transition-colors">
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-lbxText uppercase tracking-wide mb-1">Rating</label>
+                        <input type="number" id="rating" min="1" max="5" placeholder="1-5" class="w-full bg-lbxBg border border-lbxBorder rounded p-2 text-white text-sm focus:outline-none focus:border-lbxOrange transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-lbxText uppercase tracking-wide mb-1">Year</label>
+                        <input type="number" id="year" placeholder="YYYY" class="w-full bg-lbxBg border border-lbxBorder rounded p-2 text-white text-sm focus:outline-none focus:border-lbxGreen transition-colors">
+                    </div>
+                </div>
+
+                <div class="flex items-center pt-2">
+                    <input type="checkbox" id="isWatched" class="w-4 h-4 text-lbxGreen bg-lbxBg border-lbxBorder rounded focus:ring-lbxGreen focus:ring-offset-lbxBg">
+                    <label class="ml-2 text-sm text-lbxTextLight">I have watched this film</label>
+                </div>
+
+                <button type="submit" class="w-full mt-4 bg-lbxGreen hover:bg-[#00c048] text-lbxBg font-bold py-2 px-4 rounded transition-colors uppercase tracking-wide text-sm">
+                    Save to Diary
+                </button>
+            </form>
+        </section>
+
+        <section class="space-y-10">
+            
+            <div>
+                <h2 class="text-sm font-semibold mb-4 text-lbxTextLight uppercase tracking-widest border-b border-lbxBorder pb-2">Your Stats</h2>
+                <div id="analytics-container" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-lbxCard p-4 rounded-md border border-lbxBorder flex flex-col justify-center items-center">
+                        <p class="text-xs uppercase tracking-wide text-lbxText">Total Films</p>
+                        <p id="total-watched" class="text-2xl font-bold text-white mt-1">--</p>
+                    </div>
+                    <div class="bg-lbxCard p-4 rounded-md border border-lbxBorder flex flex-col justify-center items-center">
+                        <p class="text-xs uppercase tracking-wide text-lbxText">Avg Rating</p>
+                        <p id="avg-rating" class="text-2xl font-bold text-lbxOrange mt-1">--</p>
+                    </div>
+                    <div class="bg-lbxCard p-4 rounded-md border border-lbxBorder flex flex-col justify-center items-center">
+                        <p class="text-xs uppercase tracking-wide text-lbxText">Top Genre</p>
+                        <p id="top-genre" class="text-2xl font-bold text-lbxGreen mt-1">--</p>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h2 class="text-sm font-semibold mb-4 text-lbxTextLight uppercase tracking-widest border-b border-lbxBorder pb-2">Recent Activity</h2>
+                <div id="movie-list" class="space-y-2">
+                    <p class="text-sm italic">Loading your diary...</p>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
