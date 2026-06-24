@@ -2,7 +2,7 @@ import Movie from '../models/Movie.js';
 
 // 🎬 ADD MOVIE
 // THE SMART LIBRARIAN (Now with TMDB Auto-Fetch!)
-exports.addMovie = async (req, res) => {
+export const addMovie = async (req, res) => {
     try {
         // Ab frontend se sirf naam, rating aur status aayega
         const { title, rating, watched } = req.body;
