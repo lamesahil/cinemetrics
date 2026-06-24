@@ -108,7 +108,7 @@ async function fetchMovies() {
                             <span onclick="toggleWatchStatus('${movie._id}', ${isWatched})" class="${statusColor} uppercase tracking-wider text-[10px] font-bold transition-colors">${statusText}</span>
                             ${ratingDisplay}
                         </div>
-                        <button onclick="deleteMovieHandler('${movie._id}')" class="text-red-500 hover:text-red-700 ml-4 font-bold">❌</button>
+                        <button onclick="deleteMovieHandler('${movie._id}')" class="text-red-500 hover:text-red-700 ml-4 font-bold">🗑️</button>
                     </div>
                 `;
                 movieListDiv.appendChild(movieCard);
