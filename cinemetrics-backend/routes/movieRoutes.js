@@ -1,5 +1,6 @@
 import express from 'express';
 import { addMovie, getMovies, updateMovieStatus, getAnalytics } from '../controllers/movieController.js';
+import { deleteMovie } from '../controllers/movieController.js';
 // 1. Apne Bouncer ko bulao
 import { protect } from '../middleware/authMiddleware.js'; 
 
@@ -10,5 +11,6 @@ router.post('/', protect, addMovie);
 router.get('/', protect, getMovies);
 router.get('/analytics', protect, getAnalytics);
 router.patch('/:id', protect, updateMovieStatus);
+router.delete('/:id', protect, deleteMovie);
 
 export default router;

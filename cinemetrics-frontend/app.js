@@ -108,6 +108,7 @@ async function fetchMovies() {
                             <span onclick="toggleWatchStatus('${movie._id}', ${isWatched})" class="${statusColor} uppercase tracking-wider text-[10px] font-bold transition-colors">${statusText}</span>
                             ${ratingDisplay}
                         </div>
+                        <button onclick="deleteMovieHandler('${movie._id}')" class="text-red-500 hover:text-red-700 ml-4 font-bold">❌</button>
                     </div>
                 `;
                 movieListDiv.appendChild(movieCard);
@@ -160,3 +161,28 @@ if (logoutBtn) {
         window.location.href = 'auth.html';
     });
 }
+
+// Function to Delete Movie
+async function deleteMovieHandler(id) {
+    if (!confirm("Are you sure you want to delete this film?")) return;
+
+    try {
+        const res = await fetch(`${API_URL}/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${MY_TOKEN}`
+            }
+        });
+
+        if (res.ok) {
+            // Movie list dobara load karo taaki delete hui movie gayab ho jaye
+            // Yahan apna function call kar lena, e.g., loadMovies();
+        } else {
+            alert("Failed to delete movie");
+        }
+    } catch (err) {
+        console.error(err);
+    }
+}
+// global scope ke liye taaki HTML ka onclick isko access kar sake
+window.deleteMovieHandler = deleteMovieHandler;

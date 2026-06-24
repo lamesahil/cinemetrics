@@ -113,3 +113,22 @@ export const getAnalytics = async (req, res) => {
         res.status(500).json({ success: false, message: 'Server Error' });
     }
 };
+
+// THE ASSASSIN (Delete Movie)
+export const deleteMovie = async (req, res) => {
+    try {
+        const movie = await Movie.findById(req.params.id);
+        if (!movie) return res.status(404).json({ message: "Movie not found" });
+
+        // Check permission: Sirf owner delete kar sakta hai
+        if (movie.user.toString() !== req.user.id) {
+            return res.status(401).json({ message: "Not authorized" });
+        }
+
+        await movie.deleteOne();
+        res.status(200).json({ message: "Movie deleted successfully" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server Error" });
+    }
+};
