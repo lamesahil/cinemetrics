@@ -57,37 +57,26 @@
         <section class="h-fit">
             <h2 class="text-sm font-semibold mb-4 text-lbxTextLight uppercase tracking-widest border-b border-lbxBorder pb-2">Log a Film</h2>
             
-            <form id="add-movie-form" class="space-y-4 bg-lbxCard p-5 rounded-md border border-lbxBorder shadow-md">
-                <div>
-                    <label class="block text-xs font-semibold text-lbxText uppercase tracking-wide mb-1">Name of Film</label>
-                    <input type="text" id="title" required class="w-full bg-lbxBg border border-lbxBorder rounded p-2 text-white text-sm focus:outline-none focus:border-lbxGreen transition-colors">
-                </div>
-                
-                <div>
-                    <label class="block text-xs font-semibold text-lbxText uppercase tracking-wide mb-1">Genres</label>
-                    <input type="text" id="genre" placeholder="e.g. Crime, Drama" required class="w-full bg-lbxBg border border-lbxBorder rounded p-2 text-white text-sm focus:outline-none focus:border-lbxGreen transition-colors">
-                </div>
+           <form id="add-movie-form" class="space-y-4">
+    <div>
+        <label class="block text-xs uppercase tracking-wider font-semibold mb-2">Name of Film</label>
+        <input type="text" id="movie-title" required class="w-full bg-lbxBg border border-lbxBorder rounded p-2.5 text-white focus:outline-none focus:border-lbxGreen">
+    </div>
 
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-xs font-semibold text-lbxText uppercase tracking-wide mb-1">Rating</label>
-                        <input type="number" id="rating" min="1" max="5" placeholder="1-5" class="w-full bg-lbxBg border border-lbxBorder rounded p-2 text-white text-sm focus:outline-none focus:border-lbxOrange transition-colors">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-lbxText uppercase tracking-wide mb-1">Year</label>
-                        <input type="number" id="year" placeholder="YYYY" class="w-full bg-lbxBg border border-lbxBorder rounded p-2 text-white text-sm focus:outline-none focus:border-lbxGreen transition-colors">
-                    </div>
-                </div>
+    <div>
+        <label class="block text-xs uppercase tracking-wider font-semibold mb-2">Rating (1-5)</label>
+        <input type="number" id="movie-rating" min="1" max="5" required class="w-full bg-lbxBg border border-lbxBorder rounded p-2.5 text-white focus:outline-none focus:border-lbxGreen">
+    </div>
 
-                <div class="flex items-center pt-2">
-                    <input type="checkbox" id="isWatched" class="w-4 h-4 text-lbxGreen bg-lbxBg border-lbxBorder rounded focus:ring-lbxGreen focus:ring-offset-lbxBg">
-                    <label class="ml-2 text-sm text-lbxTextLight">I have watched this film</label>
-                </div>
+    <div class="flex items-center gap-2">
+        <input type="checkbox" id="movie-watched" class="rounded bg-lbxBg border-lbxBorder text-lbxGreen focus:ring-0">
+        <label for="movie-watched" class="text-sm">I have watched this film</label>
+    </div>
 
-                <button type="submit" class="w-full mt-4 bg-lbxGreen hover:bg-[#00c048] text-lbxBg font-bold py-2 px-4 rounded transition-colors uppercase tracking-wide text-sm">
-                    Save to Diary
-                </button>
-            </form>
+    <button type="submit" class="w-full bg-lbxGreen text-lbxBg font-bold uppercase py-3 rounded hover:bg-[#00c048] transition-colors cursor-pointer">
+        SAVE TO DIARY
+    </button>
+</form>
         </section>
 
         <section class="space-y-10">

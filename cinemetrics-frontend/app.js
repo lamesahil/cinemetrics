@@ -23,51 +23,35 @@ if (userName && userGreeting) {
 const addForm = document.getElementById('add-movie-form');
 
 // Function: Add Movie to Database
-async function addMovie(e) {
-    e.preventDefault(); 
+addForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-    const title = document.getElementById('title').value;
-    const genreInput = document.getElementById('genre').value;
-    const genre = genreInput.split(',').map(g => g.trim()); 
-    const rating = document.getElementById('rating').value;
-    const releaseYear = document.getElementById('year').value;
-    const isWatched = document.getElementById('isWatched').checked;
-
-    const movieData = {
-        title,
-        genre,
-        rating: rating ? Number(rating) : null,
-        releaseYear: releaseYear ? Number(releaseYear) : null,
-        isWatched
-    };
+    const title = document.getElementById('movie-title').value;
+    const rating = document.getElementById('movie-rating').value;
+    const watched = document.getElementById('movie-watched').checked;
 
     try {
-        const response = await fetch(API_URL, {
+        const res = await fetch(API_URL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${MY_TOKEN}`
             },
-            body: JSON.stringify(movieData)
+            body: JSON.stringify({ title, rating, watched }) // Sirf ye 3 cheezein jayengi!
         });
 
-        const data = await response.json();
-
-        if (data.success) {
-            addForm.reset(); 
-            // Refresh data immediately
-            fetchAnalytics();
-            fetchMovies();
+        if (res.ok) {
+            addForm.reset();
+            fetchMovies(); // Refresh the movie list after adding
+            fetchAnalytics(); // Refresh analytics after adding
         } else {
-            alert('❌ Error: ' + data.message);
+            const errorData = await res.json();
+            alert(errorData.message || "Failed to add movie");
         }
-    } catch (error) {
-        console.error("Backend unreachable!", error);
+    } catch (err) {
+        console.error(err);
     }
-}
-
-// Event Listener for form
-addForm.addEventListener('submit', addMovie);
+});
 
 // Function: Fetch and Display Analytics
 async function fetchAnalytics() {
