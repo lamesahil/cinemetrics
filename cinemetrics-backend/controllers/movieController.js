@@ -4,31 +4,36 @@ import Movie from '../models/Movie.js';
 // THE SMART LIBRARIAN (Now with TMDB Auto-Fetch!)
 export const addMovie = async (req, res) => {
     try {
-        // Ab frontend se sirf naam, rating aur status aayega
         const { title, rating, watched } = req.body;
 
-        // 1. TMDB API ko call lagao
+        // 1. TMDB ko call lagao
         const tmdbResponse = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.TMDB_API_KEY}&query=${encodeURIComponent(title)}`);
         const tmdbData = await tmdbResponse.json();
 
-        // 2. Agar movie nahi mili
         if (!tmdbData.results || tmdbData.results.length === 0) {
             return res.status(404).json({ message: "Movie not found on TMDB!" });
         }
 
-        // 3. Best match (pehla result) uthao
         const bestMatch = tmdbData.results[0]; 
         
-        // TMDB se exact saal nikaalo (e.g., "1999-10-15" se "1999")
-        const fetchedYear = bestMatch.release_date ? bestMatch.release_date.split('-')[0] : "Unknown";
+        // 2. Exact Year Fix
+        const fetchedYear = bestMatch.release_date ? Number(bestMatch.release_date.split('-')[0]) : null;
 
-        // 4. Data ko apne MongoDB mein save karo (Ownership tag ke sath)
+        // 3. TMDB Genre Dictionary (Numbers to Words translation)
+        const genreMap = {
+            28: "Action", 12: "Adventure", 16: "Animation", 35: "Comedy", 80: "Crime", 99: "Documentary", 18: "Drama", 10751: "Family", 14: "Fantasy", 36: "History", 27: "Horror", 10402: "Music", 9648: "Mystery", 10749: "Romance", 878: "Sci-Fi", 53: "Thriller", 10752: "War", 37: "Western"
+        };
+        // Shuru ke 2 genres nikal lo
+        const fetchedGenres = bestMatch.genre_ids ? bestMatch.genre_ids.slice(0, 2).map(id => genreMap[id]).filter(Boolean) : ["Unknown"];
+
+        // 4. Correct Database Schema Mapping 
         const newMovie = new Movie({
-            title: bestMatch.title, // TMDB ka official spelling
-            year: fetchedYear,
-            rating: rating || 0,
-            watched: watched || false,
-            user: req.user.id // Bouncer se aaya hua VIP Pass
+            title: bestMatch.title,
+            releaseYear: fetchedYear,   // EXACT NAME MATCHED!
+            genre: fetchedGenres,       // EXACT NAME MATCHED!
+            rating: rating ? Number(rating) : 0,
+            isWatched: watched || false, // EXACT NAME MATCHED!
+            user: req.user.id
         });
 
         const savedMovie = await newMovie.save();
@@ -39,7 +44,6 @@ export const addMovie = async (req, res) => {
         res.status(500).json({ message: "Server error while auto-fetching data" });
     }
 };
-
 // 🎬 GET ALL MOVIES
 export const getMovies = async (req, res) => {
     try {
