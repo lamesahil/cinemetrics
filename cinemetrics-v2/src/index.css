@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-[#0a0a0a] text-white font-sans antialiased; /* Yeh tera dark cinematic vibe set karega */
+}
