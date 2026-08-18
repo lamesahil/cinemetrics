@@ -5,7 +5,7 @@ A full-stack, data-driven personal film logging and analytics dashboard.
 https://cinemetrics-zeta.vercel.app/auth.html
 
 ### 🛠️ Tech Stack
-* **Frontend:** HTML, Tailwind CSS, JavaScript (Vanilla/DOM Manipulation)
+* **Frontend:** HTML, Tailwind CSS, JavaScript (Vanilla/DOM Manipulation),React
 * **Backend:** Node.js, Express.js
 * **Database:** MongoDB
 * **Authentication:** JSON Web Tokens (JWT) & bcryptjs
