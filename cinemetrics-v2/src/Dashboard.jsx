@@ -184,9 +184,17 @@ export default function Dashboard() {
                                 <input type="text" required value={title} onChange={(e) => setTitle(e.target.value)} className="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-white transition-colors" />
                             </div>
                             <div>
-                                <label className="block text-xs text-neutral-400 mb-1 uppercase tracking-wider">Rating (1-10)</label>
-                                <input type="number" min="1" max="10" step="0.1" value={rating} onChange={(e) => setRating(e.target.value)} className="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-white transition-colors" />
-                            </div>
+    <label className="block text-xs text-neutral-400 mb-1 uppercase tracking-wider">Rating (1-5)</label>
+    <input 
+        type="number" 
+        min="1" 
+        max="5" // Yahan 10 ko 5 kar diya
+        step="0.1" 
+        value={rating} 
+        onChange={(e) => setRating(e.target.value)} 
+        className="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-white transition-colors" 
+    />
+</div>
                             <div className="flex items-center space-x-2 pt-2">
                                 <input type="checkbox" id="watched" checked={isWatched} onChange={(e) => setIsWatched(e.target.checked)} className="w-4 h-4 bg-neutral-900 border-neutral-800 rounded accent-white" />
                                 <label htmlFor="watched" className="text-sm font-medium text-neutral-300">Already Watched</label>
