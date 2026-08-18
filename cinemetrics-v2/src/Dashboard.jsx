@@ -65,7 +65,7 @@ export default function Dashboard() {
             
             const data = await res.json();
             
-            if (res.ok && data.success) {
+            if (res.ok) {
                 setTitle('');
                 setRating('');
                 setIsWatched(false);
